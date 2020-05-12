@@ -11,6 +11,9 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    webPreferences: {
+        nodeIntegration: true,
+    }
   });
 
   // and load the index.html of the app.
@@ -18,6 +21,12 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  // fires when the page finishes loading
+  mainWindow.webContents.on('did-finish-load', () => {
+      // pull down the initial set
+      mainWindow.webContents.executeJavaScript("refreshPage();");
+  });
 };
 
 // This method will be called when Electron has finished
