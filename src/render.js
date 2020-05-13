@@ -1,3 +1,5 @@
+// let $ = require('jquery');
+
 const refreshBtn = document.getElementById('refreshBtn');
 refreshBtn.onclick = refreshPage;
 
@@ -7,6 +9,9 @@ let Parser = require('rss-parser');
 let parser = new Parser();
 
 async function refreshPage() {
+
+    // clean up page by removing old elements
+    $("article").remove();
 
     let a = await RSS_URLS.forEach(async (url) => {
         let feed = await parser.parseURL(url);
